@@ -9,3 +9,18 @@ Content-Type:  application/json
     "email":"test@gmail.com",
     "password": "123454"
 }
+
+### category Zone ###
+###fetch all category
+GET  http://localhost:8000/api/v1/category
+
+
+### Add a category
+
+POST http://localhost:8000/api/v1/category
+Content-Type: application/application/json
+
+{
+    "name":"saishs",
+    "parentCat":0
+}

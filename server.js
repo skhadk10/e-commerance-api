@@ -1,7 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 const app = express();
+
 const PORT = process.env.PORT || 8000;
 
 app.use(cors());
@@ -11,10 +15,16 @@ app.use(express.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(express.json());
+
+import mongoClient from "./config/db.js";
+mongoClient();
+
 // LOAD ROUTERS
 import loginRouter from "./routers/login.router.js";
+import categoryRouter from "./routers/category.router.js";
 // APIS
 app.use("/api/v1/login", loginRouter);
+app.use("/api/v1/category", categoryRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
