@@ -4,16 +4,27 @@ export const insertCategories = (catObj) => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await CategorySchema(catObj).save();
+
       resolve(result);
     } catch (error) {
       reject(error);
     }
   });
 };
-export const getCategories = (catObj) => {
+export const getCategories = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await CategorySchema.find();
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const deleteCategories = (catArg) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await CategorySchema.deleteMany({ _id: { $in: catArg } });
       resolve(result);
     } catch (error) {
       reject(error);

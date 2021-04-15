@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const CategorySchema = mongoose.Schema(
   {
     name: {
@@ -6,20 +7,14 @@ const CategorySchema = mongoose.Schema(
       require: true,
       default: "",
     },
-    ParentCat: {
+    slug: {
       type: String,
       require: true,
       default: "",
     },
-    //   childCats: [
-    //     {
-    //       name: {
-    //         type: string,
-    //         require: true,
-    //         default: "",
-    //       },
-    //     },
-    //   ],
+    parentCat: {
+      type: mongoose.Schema.ObjectId,
+    },
   },
   {
     timestamp: true,
