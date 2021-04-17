@@ -22,9 +22,11 @@ mongoClient();
 // LOAD ROUTERS
 import loginRouter from "./routers/login.router.js";
 import categoryRouter from "./routers/category.router.js";
+import ProductRouter from "./routers/product.router.js";
 // APIS
 app.use("/api/v1/login", loginRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", ProductRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

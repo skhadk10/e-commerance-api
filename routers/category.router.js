@@ -6,6 +6,7 @@ import {
   getCategories,
   insertCategories,
   deleteCategories,
+  updateCategories,
 } from "../model/category/Category.model.js";
 
 router.all("*", (req, res, next) => {
@@ -65,6 +66,23 @@ router.delete("/", async (req, res) => {
     return res.json({
       status: "error",
       message: "Unable to delete the category",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+});
+
+router.patch("/", async (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const result = await updateCategories(name);
+    console.log(result);
+    res.json({
+      status: "success",
+      message: "New category success",
       result,
     });
   } catch (error) {

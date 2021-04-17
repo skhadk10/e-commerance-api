@@ -1,20 +1,20 @@
-import CategorySchema from "./Category.schema.js";
+import ProdSchema from "./Product.schema.js";
 
-export const insertCategories = (catObj) => {
+export const insertProduct = (ProdObj) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await CategorySchema(catObj).save();
-
+      const result = await ProdSchema(ProdObj).save();
       resolve(result);
     } catch (error) {
       reject(error);
     }
   });
 };
+
 export const getCategories = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await CategorySchema.find();
+      const result = await ProdSchema.find();
       resolve(result);
     } catch (error) {
       reject(error);
@@ -24,7 +24,7 @@ export const getCategories = () => {
 export const deleteCategories = (catArg) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await CategorySchema.deleteMany({ _id: { $in: catArg } });
+      const result = await ProdSchema.deleteMany({ _id: { $in: catArg } });
       resolve(result);
     } catch (error) {
       reject(error);
@@ -32,15 +32,13 @@ export const deleteCategories = (catArg) => {
   });
 };
 
-export const updateCategories = (Catupdate) => {
-  const { _id, rename } = Catupdate;
+export const updateCategories = ({ _id, name }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await CategorySchema.findByIdAndUpdate(
+      const result = await ProdSchema.findByIdAndUpdate(
         { _id },
-        { $set: { name: rename } }
+        { $rename: { name } }
       );
-      console.name(result);
       resolve(result);
     } catch (error) {
       reject(error);

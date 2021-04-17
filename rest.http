@@ -18,8 +18,28 @@ GET  http://localhost:8000/api/v1/category
 ### Add a category
 
 DELETE  http://localhost:8000/api/v1/category
-Content-Type: application/application/json
 
+### patch a category
+
+PATCH  http://localhost:8000/api/v1/category
+Content-Type:  application/json
+   
+{
+    "name":"sanish",
+   
+   
+}
+
+### Product APIS
+### Add new Product
+
+POST http://localhost:8000/api/v1/product
+Content-Type:  application/json
+   
+{
+    "name":"Root  sanish",
+    "price": 0
+}
 
 
   
