@@ -11,7 +11,7 @@ export const insertProduct = (ProdObj) => {
   });
 };
 
-export const getCategories = () => {
+export const getProducts = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema.find();
@@ -21,10 +21,10 @@ export const getCategories = () => {
     }
   });
 };
-export const deleteCategories = (catArg) => {
+export const deleteProduct = (_id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await ProdSchema.deleteMany({ _id: { $in: catArg } });
+      const result = await ProdSchema.findByIdAndDelete(_id);
       resolve(result);
     } catch (error) {
       reject(error);
@@ -39,6 +39,17 @@ export const updateCategories = ({ _id, name }) => {
         { _id },
         { $rename: { name } }
       );
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const getProductsById = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await ProdSchema.findById(_id);
       resolve(result);
     } catch (error) {
       reject(error);

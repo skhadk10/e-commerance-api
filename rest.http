@@ -41,5 +41,19 @@ Content-Type:  application/json
     "price": 0
 }
 
-
+### pitch for single product id update
+  GET    http://localhost:8000/api/v1/product
   
+   
+
+### fetch for single product id update
+  GET    http://localhost:8000/api/v1/product/607b4cf21234902010235014
+Content-Type:  application/json
+   
+### delete product
+  DELETE http://localhost:8000/api/v1/products
+Content-Type:  application/json
+  
+   {
+     "_id":"607b4d661234902010235015"
+   }
