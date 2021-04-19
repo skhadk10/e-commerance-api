@@ -31,11 +31,15 @@ export const deleteProduct = (_id) => {
     }
   });
 };
-
+// UPdate product in Edit product form// UPdate product in Edit product form
 export const updateProductById = ({ _id, formDt }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await ProdSchema.findByIdAndUpdate({ _id }, { formDt });
+      const result = await ProdSchema.findByIdAndUpdate(
+        { _id },
+        { $set: formDt },
+        { new: true }
+      );
       console.log(result);
       resolve(result);
     } catch (error) {

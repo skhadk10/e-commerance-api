@@ -55,14 +55,21 @@ router.post("/", newProductValidation, async (req, res) => {
   }
 });
 
+// UPdate product in Edit product form
 router.put("/", updateProductValidation, async (req, res) => {
-  console.log(req.body, "after serverside validation");
+  const { _id, ...formDt } = req.body;
   try {
-    const result = await updateProductById(req.body);
-
+    const result = await updateProductById({ _id, formDt });
+    if (result?._id) {
+      res.json({
+        status: "success",
+        message: "This product has been updated",
+        result,
+      });
+    }
     res.json({
-      status: "success",
-      message: "This product has been updated",
+      status: "error",
+      message: "This product cannot updated",
       result,
     });
   } catch (error) {
