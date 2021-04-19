@@ -1,6 +1,7 @@
 import ProdSchema from "./Product.schema.js";
 
 export const insertProduct = (ProdObj) => {
+  console.log(ProdObj)
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema(ProdObj).save();
@@ -49,6 +50,7 @@ export const updateProductById = ({ _id, formDt }) => {
 };
 
 export const getProductsById = (_id) => {
+  
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema.findById(_id);

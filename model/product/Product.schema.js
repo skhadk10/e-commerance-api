@@ -27,7 +27,7 @@ const ProductSchema = mongoose.Schema(
       require: true,
       default: "",
     },
-    saleEndDatw: {
+    saleEndDate: {
       type: Date,
     },
     qty: {

@@ -25,6 +25,7 @@ export const loginValidation = (req, res, next) => {
 };
 
 export const newProductValidation = (req, res, next) => {
+  console.log(req.body,"form")
   const schema = Joi.object({
     name: shortStr.required(),
     qty: num.required(),
