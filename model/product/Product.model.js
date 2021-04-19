@@ -32,13 +32,11 @@ export const deleteProduct = (_id) => {
   });
 };
 
-export const updateCategories = ({ _id, name }) => {
+export const updateProductById = ({ _id, formDt }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await ProdSchema.findByIdAndUpdate(
-        { _id },
-        { $rename: { name } }
-      );
+      const result = await ProdSchema.findByIdAndUpdate({ _id }, { formDt });
+      console.log(result);
       resolve(result);
     } catch (error) {
       reject(error);

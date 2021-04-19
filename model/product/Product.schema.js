@@ -5,7 +5,7 @@ const ProductSchema = mongoose.Schema(
     status: {
       type: Boolean,
       require: true,
-      default: true,
+      default: false,
     },
     name: {
       type: String,

@@ -1,13 +1,17 @@
 import express from "express";
 const router = express.Router();
 import slugify from "slugify";
-import { newProductValidation } from "../middleware/formValidation.midleware.js";
+import {
+  newProductValidation,
+  updateProductValidation,
+} from "../middleware/formValidation.midleware.js";
 
 import {
   getProducts,
   deleteProduct,
   insertProduct,
   getProductsById,
+  updateProductById,
 } from "../model/product/Product.model.js";
 
 router.all("*", (req, res, next) => {
@@ -51,28 +55,28 @@ router.post("/", newProductValidation, async (req, res) => {
   }
 });
 
-// router.put("/", async (req, res) => {
-//   const _id = req.body;
-//   try {
-//     const result = await getProductsById(_id);
+router.put("/", updateProductValidation, async (req, res) => {
+  console.log(req.body, "after serverside validation");
+  try {
+    const result = await updateProductById(req.body);
 
-//     res.json({
-//       status: "success",
-//       message: "fetchinhg success",
-//       result,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     throw new Error(error.message);
-//   }
-// });
+    res.json({
+      status: "success",
+      message: "This product has been updated",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+});
 
 router.delete("/", async (req, res) => {
   try {
     if (!req.body) {
       return res.json({
         status: "error",
-        message: "Unable to add the product, Please try again later",
+        message: "Unable to update the product, Please try again later",
       });
     }
     const result = await deleteProduct(req.body);

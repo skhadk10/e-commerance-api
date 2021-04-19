@@ -47,7 +47,7 @@ Content-Type:  application/json
    
 
 ### fetch for single product id update
-  GET    http://localhost:8000/api/v1/product/607b4cf21234902010235014
+  GET    http://localhost:8000/api/v1/product/607b9114e93a0f29f41d4cdc
 Content-Type:  application/json
    
 ### delete product
