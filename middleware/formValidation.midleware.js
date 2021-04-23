@@ -25,11 +25,17 @@ export const loginValidation = (req, res, next) => {
 };
 
 export const newProductValidation = (req, res, next) => {
-  console.log(req.body,"form")
+  console.log(req.body, "form");
+  const categories = req.body.categories.length
+    ? req.body.categories.split(",")
+    : [];
+
+  req.body.categories = categories;
   const schema = Joi.object({
     name: shortStr.required(),
     qty: num.required(),
     status: boolean.required(),
+
     price: num.required(),
     salePrice: num,
     saleEndDate: date,

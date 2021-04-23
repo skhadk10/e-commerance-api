@@ -49,12 +49,12 @@ Content-Type:  application/json
 
 ### fetch for single product id update
   GET    http://localhost:8000/api/v1/product/607b9114e93a0f29f41d4cdc
-Content-Type:  application/json
+
    
 ### delete product
-  DELETE http://localhost:8000/api/v1/products
-Content-Type:  application/json
-  
-   {
-     "_id":"607b4d661234902010235015"
-   }
+  DELETE http://localhost:8000/api/v1/localhost:8000/api/v1/products
+Content-Type: application/json
+
+{
+  "_id": "607b9114e93a0f29f41d4cdc"
+}

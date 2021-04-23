@@ -29,7 +29,6 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, parentCat } = req.body;
-  console.log(res.body);
 
   try {
     const newCat = {
@@ -51,7 +50,6 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-  const { name, parentCat } = req.body;
   const catIds = req.body;
   try {
     const result = await deleteCategories(catIds);
