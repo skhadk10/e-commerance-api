@@ -27,7 +27,6 @@ export const deleteProduct = (_id) => {
     try {
       const result = await ProdSchema.findByIdAndDelete(_id);
       resolve(result);
-      console.log(result);
     } catch (error) {
       reject(error);
     }
@@ -42,7 +41,7 @@ export const updateProductById = ({ _id, formDt }) => {
         { $set: formDt },
         { new: true }
       );
-      console.log(result);
+
       resolve(result);
     } catch (error) {
       reject(error);

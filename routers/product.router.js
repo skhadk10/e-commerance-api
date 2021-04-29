@@ -25,12 +25,12 @@ var storage = multer.diskStorage({
       error.status = 400;
     }
 
-    cb(null, "public/img/product");
+    cb(error, "public/img/product");
   },
   filename: function (req, file, cb) {
     const fileName = slugify(file.originalname.split(".")[0]);
     const extension = ALLOWED_FILE_TYPE[file.mimetype];
-    const fullFileName = fileName + "-" + Date.now() + "-" + extension;
+    const fullFileName = fileName + "-" + Date.now() + "." + extension;
     cb(null, fullFileName);
   },
 });
@@ -69,15 +69,15 @@ router.post(
   upload.array("images", 5),
   newProductValidation,
   async (req, res) => {
+    console.log(req.files);
     try {
       const addNewProd = {
         ...req.body,
         slug: slugify(req.body.name),
       };
 
-      const basePath = `${req.protocol}://${req.get("host")}/img/product`;
+      const basePath = `${req.protocol}://${req.get("host")}/img/product/`;
       const files = req.files;
-      console.log(files);
 
       const images = [];
 
@@ -85,7 +85,7 @@ router.post(
         const imgFulPath = basePath + file.filename;
         images.push(imgFulPath);
       });
-      const result = await insertProduct(addNewProd);
+      const result = await insertProduct({ addNewProd, images });
 
       if (result?._id) {
         return res.json({
@@ -107,8 +107,39 @@ router.post(
 
 // UPdate product in Edit product form
 router.put("/", updateProductValidation, async (req, res) => {
-  const { _id, ...formDt } = req.body;
   try {
+    const { _id, ...formDt } = req.body;
+    const { imgToDelete } = formDt;
+    // code to receive images
+
+    const basePath = `${req.protocol}://${req.get("host")}/img/product`;
+    const files = req.files;
+    console.log(files);
+
+    const images = [];
+    // get images from database ad filter here
+
+    files.map((file) => {
+      const imgFulPath = basePath + file.filename;
+      images.push(imgFulPath);
+    });
+
+    if (imgToDelete?.length) {
+      const deleteImgsource = imgToDelete.split(",");
+      // get the product from database
+      const prod = await getProductsById(_id);
+
+      if (prod.images.length) {
+        const updatingimages = prod.images.filter(
+          (imgsource) => !deleteImgsource.includes(imgsource)
+        );
+        images = [...images, ...updatingimages];
+      }
+      // images is comming from frontend to remove from database
+      // prod.images is comming from database, the old images
+      // now, we need to filter Prod.images based on imgToDelete
+    }
+
     const result = await updateProductById({ _id, formDt });
     if (result?._id) {
       res.json({

@@ -1,13 +1,26 @@
 ### root access
 GET http://localhost:8000
 
-### Logon api endpoint
+### Lo
 POST http://localhost:8000/api/v1/login
 Content-Type:  application/json
    
 {
-    "email":"test@gmail.com",
-    "password": "123454"
+     "email":"sanish23@gmail.com",
+    "password": "123456"
+}
+
+### user router
+### create a user
+PUT  http://localhost:8000/api/v1/user
+Content-Type:  application/json
+   
+{
+  "fName":"sanish",
+  "lName":"khadka",
+    "email":"sanish213@gmail.com",
+    "password": "123456",
+    "role":"user"
 }
 
 ### category Zone ###
