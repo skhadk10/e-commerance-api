@@ -17,6 +17,7 @@ export const createAccessJWT = (email, _id) => {
           accessJWT,
           userId: _id,
         };
+        // save new token in session of database
         storeAccessJwt(newSession);
       }
       resolve(accessJWT);

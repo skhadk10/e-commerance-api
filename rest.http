@@ -6,19 +6,24 @@ POST http://localhost:8000/api/v1/login
 Content-Type:  application/json
    
 {
-     "email":"sanish23@gmail.com",
+     "email":"sanish210@gmail.com",
     "password": "123456"
 }
 
+
+###gt user by id
+GET  http://localhost:8000/api/v1/user/608e9f97dd4f3320a06965bc
+
+
 ### user router
 ### create a user
-PUT  http://localhost:8000/api/v1/user
+Post  http://localhost:8000/api/v1/user
 Content-Type:  application/json
    
 {
   "fName":"sanish",
   "lName":"khadka",
-    "email":"sanish213@gmail.com",
+    "email":"sanish210@gmail.com",
     "password": "123456",
     "role":"user"
 }
