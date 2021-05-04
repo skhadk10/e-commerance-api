@@ -6,15 +6,14 @@ POST http://localhost:8000/api/v1/login
 Content-Type:  application/json
    
 {
-     "email":"sanish210@gmail.com",
+     "email":"sanish3@gmail.com",
     "password": "123456"
 }
 
 
 ###gt user by id
-GET  http://localhost:8000/api/v1/user/608e9f97dd4f3320a06965bc
-
-
+GET  http://localhost:8000/api/v1/user
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmlzaDNAZ21haWwuY29tIiwiaWF0IjoxNjIwMTI5OTg5LCJleHAiOjE2MjAxMzA4ODl9.ns2bmP1eTnht-M7z5dD5jgW8M4lPmokeaTYsgo5zZUQ
 ### user router
 ### create a user
 Post  http://localhost:8000/api/v1/user
@@ -23,7 +22,7 @@ Content-Type:  application/json
 {
   "fName":"sanish",
   "lName":"khadka",
-    "email":"sanish210@gmail.com",
+    "email":"sanish3@gmail.com",
     "password": "123456",
     "role":"user"
 }
@@ -76,3 +75,8 @@ Content-Type: application/json
 {
   "_id": "607b9114e93a0f29f41d4cdc"
 }
+
+### token endpoint
+# Request fresh accessjwt
+GET    http://localhost:8000/api/v1/token
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmlzaDNAZ21haWwuY29tIiwiaWF0IjoxNjIwMTMwMzA2LCJleHAiOjE2MjI3MjIzMDZ9.qbweV3IuJva6S6WzZ5qj5EJcEay_QZ7RBTRHZCBzAzU

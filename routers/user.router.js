@@ -6,22 +6,28 @@ import { newUserValidation } from "../middleware/formValidation.midleware.js";
 
 import { createUser, getUserById } from "../model/user/User.model.js";
 import UsersSchema from "../model/user/User.schema.js";
+import { verifyAccessjwt } from "../helper/jwt.helper.js";
+import { userAuthorization } from "../middleware/authorization.middleware.js";
 
 router.all("*", (req, res, next) => {
   next();
 });
 
-router.get("/:_id", async (req, res, next) => {
+router.get("/", userAuthorization, async (req, res, next) => {
   try {
-    const { _id } = req.params;
+    // 1.
+    const { _id } = req.body;
     if (!_id) {
       return res.send({
         status: "error",
         message: "Invalid request ",
       });
     }
+
     const user = await getUserById(_id);
+
     if (user) user.password = undefined;
+    // accessing user by id only user inside of id not accessJWT and RefreshJWT
     user._id
       ? res.send({
           status: "success",

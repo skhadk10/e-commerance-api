@@ -8,3 +8,11 @@ export const storeAccessJwt = async (newSession) => {
     console.log(error);
   }
 };
+export const getAccessByToken = async (accessJWT) => {
+  try {
+    const result = await SessionSchema.findOne({ accessJWT });
+    return Promise.resolve(result);
+  } catch (error) {
+    return Promise.resolve(false);
+  }
+};

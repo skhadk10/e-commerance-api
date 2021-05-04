@@ -40,7 +40,7 @@ export const updateCategories = (Catupdate) => {
         { _id },
         { $set: { name: rename } }
       );
-      console.name(result);
+      console.log(result);
       resolve(result);
     } catch (error) {
       reject(error);

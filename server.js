@@ -29,11 +29,13 @@ import loginRouter from "./routers/login.router.js";
 import userRouter from "./routers/user.router.js";
 import categoryRouter from "./routers/category.router.js";
 import ProductRouter from "./routers/product.router.js";
+import tokenRouter from "./routers/token.router.js";
 // APIS
 app.use("/api/v1/login", loginRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", ProductRouter);
+app.use("/api/v1/token", tokenRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -47,6 +49,7 @@ app.use((req, res, next) => {
 });
 // Handle error
 import { handleError } from "./utils/errorHandler.js";
+
 app.use((error, req, res, next) => {
   handleError(error, res);
 });

@@ -44,5 +44,26 @@ export const createRefreshJWT = (email, _id) => {
     }
   });
 };
+export const verifyAccessjwt = (accessJWT) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decoded = jwt.verify(accessJWT, process.env.JWT_ACCESS_SECRECT);
+      resolve(decoded);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const verifyRefreshjwt = (accessJWT) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decoded = jwt.verify(accessJWT, process.env.JWT_REFRESH_SECRECT);
+      resolve(decoded);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 // store in database
