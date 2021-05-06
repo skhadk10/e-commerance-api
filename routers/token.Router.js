@@ -1,36 +1,56 @@
 import express from "express";
-import { verifyRefreshjwt } from "../helper/jwt.helper.js";
+import { createAccessJWT, verifyRefreshjwt } from "../helper/jwt.helper.js";
 import { userAuthorization } from "../middleware/authorization.middleware.js";
-
+import {} from "../helper/jwt.helper.js";
+import { getUserByEmailAndRefreshJWT } from "../model/user/User.model.js";
 const router = express.Router();
 
 router.all("*", (req, res, next) => {
   next();
 });
 
+// receive refreshJWT and return new accessJWT
 router.get("/", async (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization) {
-      return res.status(403).json({
-        status: "error",
-        message: "unathorized",
-      });
+    if (authorization) {
+      // call the function to get the accessjwt
+
+      // 1. verify storeRefreshJwt
+
+      const { email } = await verifyRefreshjwt(authorization);
+      console.log({ email });
+      // 3. find out the user who the code belongs too
+
+      if (email) {
+        // 2. check if it is in the database
+
+        const user = await getUserByEmailAndRefreshJWT({
+          email,
+          refreshJWT: authorization,
+        });
+
+        if (user._id) {
+          const tokenExp = user.refreshJWT.addedAt;
+          tokenExp.setDate(
+            tokenExp.getDate() + +process.env.JWT_REFRESH_SECRECT_EXP_DAY
+          );
+          const today = Date.now();
+          // check if the token is still valid
+
+          if (tokenExp > today) {
+            // 4. create new accessjwt and store in the session table in db
+            const accessJwt = await createAccessJWT(email, user._id);
+            console.log(accessJwt);
+            return res.json({
+              status: "success",
+              message: "here is your new accessjwt",
+              accessJwt,
+            });
+          }
+        }
+      }
     }
-    // call the function to get the accessjwt
-    // 1. verify storeRefreshJwt
-    const decodedjwt = await verifyRefreshjwt(authorization);
-    console.log(decodedjwt);
-    if (decodedjwt) {
-      return res.json({
-        status: "success",
-        message: "here is your new accessjwt",
-        decodedjwt,
-      });
-    }
-    // 2. check if it is in the database
-    // 3. find out the user who the code belongs too
-    // 4. create new accessjwt and store in the session table in
     res.status(403).json({
       status: "error",
       message: "unathorized",

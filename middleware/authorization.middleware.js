@@ -19,7 +19,7 @@ export const userAuthorization = async (req, res, next) => {
     }
     // check if token is exist in database
     const info = await getUserSession(authorization);
-    console.log(info);
+
     console.log("inof>>>>>>>>>>>", info);
     if (info.userId) {
       req.body._id = info.userId;

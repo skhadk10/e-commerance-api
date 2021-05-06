@@ -50,18 +50,18 @@ export const verifyAccessjwt = (accessJWT) => {
       const decoded = jwt.verify(accessJWT, process.env.JWT_ACCESS_SECRECT);
       resolve(decoded);
     } catch (error) {
-      reject(error);
+      reject(false);
     }
   });
 };
 
-export const verifyRefreshjwt = (accessJWT) => {
+export const verifyRefreshjwt = (refreshJWT) => {
   return new Promise((resolve, reject) => {
     try {
-      const decoded = jwt.verify(accessJWT, process.env.JWT_REFRESH_SECRECT);
+      const decoded = jwt.verify(refreshJWT, process.env.JWT_REFRESH_SECRECT);
       resolve(decoded);
     } catch (error) {
-      reject(error);
+      reject(false);
     }
   });
 };
