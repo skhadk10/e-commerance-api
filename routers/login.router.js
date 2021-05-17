@@ -33,7 +33,7 @@ router.post("/", loginValidation, async (req, res) => {
     if (!result) {
       return res.json({
         status: "error",
-        message: "Invalid 11login details",
+        message: "Invalid login details",
       });
     }
 

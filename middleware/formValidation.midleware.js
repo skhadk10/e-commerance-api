@@ -45,17 +45,17 @@ export const loginValidation = (req, res, next) => {
 };
 
 export const newProductValidation = (req, res, next) => {
-  console.log(req.body, "form");
+  console.log(req.body);
   const categories = req.body.categories.length
     ? req.body.categories.split(",")
     : [];
 
   req.body.categories = categories;
+
   const schema = Joi.object({
     name: shortStr.required(),
     qty: num.required(),
     status: boolean.required(),
-
     price: num.required(),
     salePrice: num,
     saleEndDate: date,
@@ -63,6 +63,7 @@ export const newProductValidation = (req, res, next) => {
     images: args,
     categories: args,
   });
+
   // validation
 
   const value = schema.validate(req.body);
@@ -76,7 +77,6 @@ export const newProductValidation = (req, res, next) => {
   next();
 };
 export const updateProductValidation = (req, res, next) => {
-  console.log(req.body);
   req.body.saleEndDate =
     req.body.saleEndDate === "null" ? null : req.body.saleEndDate;
 

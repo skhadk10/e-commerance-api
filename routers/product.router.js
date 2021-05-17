@@ -48,11 +48,12 @@ import {
 router.all("*", (req, res, next) => {
   next();
 });
-
+// for displaying in product (in frontend)
 router.get("/:_id?", async (req, res) => {
   const { _id } = req.params;
   try {
     const result = _id ? await getProductsById(_id) : await getProducts();
+
     res.json({
       status: "success",
       message: "fetchinhg success",
@@ -69,7 +70,6 @@ router.post(
   upload.array("images", 5),
   newProductValidation,
   async (req, res) => {
-    console.log(req.files);
     try {
       const addNewProd = {
         ...req.body,
@@ -85,7 +85,8 @@ router.post(
         const imgFulPath = basePath + file.filename;
         images.push(imgFulPath);
       });
-      const result = await insertProduct({ addNewProd, images });
+
+      const result = await insertProduct({ ...addNewProd, images });
 
       if (result?._id) {
         return res.json({
@@ -114,7 +115,7 @@ router.put("/", updateProductValidation, async (req, res) => {
 
     const basePath = `${req.protocol}://${req.get("host")}/img/product`;
     const files = req.files;
-    console.log(files);
+    // console.log(files);
 
     const images = [];
     // get images from database ad filter here
@@ -169,7 +170,7 @@ router.delete("/", async (req, res) => {
     }
 
     const result = await deleteProduct(req.body);
-    console.log(result);
+    // console.log(result);
     if (result?._id) {
       return res.json({
         status: "success",
