@@ -1,7 +1,6 @@
 import ProdSchema from "./Product.schema.js";
 
 export const insertProduct = (ProdObj) => {
-  console.log(ProdObj);
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema(ProdObj).save();
