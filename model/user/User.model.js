@@ -70,3 +70,20 @@ export const storeRefreshJwt = (_id, token) => {
     }
   });
 };
+export const deleteRefreshTokenById = (_id ) => {
+  return new Promise((resolve, reject) => {
+    try {
+      UsersSchema.findOneAndUpdate(
+        { _id },
+        {
+          $set: { "refreshJWT.token": "", "refreshJWT.addedAt": Date.now() },
+        },
+        { new: true }
+      )
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
