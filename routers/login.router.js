@@ -15,7 +15,7 @@ router.post("/", loginValidation, async (req, res) => {
   try {
     //1.get and destructure email,password from  frontend
     const { email, password } = req.body;
-
+    console.log("from login router", email)
     // 2. get the email from database and wait
     const user = await getUserByEmail(email);
    
