@@ -4,6 +4,7 @@ export const insertProduct = (ProdObj) => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema(ProdObj).save();
+      console.log(result, "from product model")
       resolve(result);
     } catch (error) {
       reject(error);
@@ -15,6 +16,7 @@ export const getProducts = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await ProdSchema.find();
+     
       resolve(result);
     } catch (error) {
       reject(error);

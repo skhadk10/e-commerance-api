@@ -15,8 +15,10 @@ router.post("/", loginValidation, async (req, res) => {
   try {
     //1.get and destructure email,password from  frontend
     const { email, password } = req.body;
+    console.log("from login router", email)
     // 2. get the email from database and wait
     const user = await getUserByEmail(email);
+   
     // 3. if user._id is not valid run error
     if (!user?._id) {
       return res.status(403).json({
@@ -28,6 +30,7 @@ router.post("/", loginValidation, async (req, res) => {
     // user.password is password from database which we store when
     const dbMashPass = user.password;
     const result = await comparePassword(password, dbMashPass);
+   
     user.password = undefined;
     user.refreshJWT = undefined;
     if (!result) {
@@ -40,7 +43,7 @@ router.post("/", loginValidation, async (req, res) => {
     // create accessJWT
     const accessJWT = await createAccessJWT(user.email, user._id);
     const refreshJWT = await createRefreshJWT(user.email, user._id);
-
+    console.log(user, accessJWT,refreshJWT);
     res.json({
       status: "success",
       message: "login success",

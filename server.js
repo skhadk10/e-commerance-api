@@ -30,12 +30,14 @@ import userRouter from "./routers/user.router.js";
 import categoryRouter from "./routers/category.router.js";
 import ProductRouter from "./routers/product.router.js";
 import tokenRouter from "./routers/token.router.js";
+import logOutRouter from "./routers/LogOut.js";
 // APIS
 app.use("/api/v1/login", loginRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", ProductRouter);
 app.use("/api/v1/token", tokenRouter);
+app.use("/api/v1/logOut", logOutRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

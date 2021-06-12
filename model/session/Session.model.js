@@ -16,3 +16,12 @@ export const getAccessByToken = async (accessJWT) => {
     return Promise.resolve(false);
   }
 };
+export const deleteAccessTokenById = async (userId) => {
+  try {
+    console.log("from session",userId);
+    const result = await SessionSchema.findOneAndDelete( userId );
+    return Promise.resolve(result);
+  } catch (error) {
+    return Promise.resolve(false);
+  }
+};
