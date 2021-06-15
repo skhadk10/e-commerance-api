@@ -29,7 +29,7 @@ import loginRouter from "./routers/login.router.js";
 import userRouter from "./routers/user.router.js";
 import categoryRouter from "./routers/category.router.js";
 import ProductRouter from "./routers/product.router.js";
-import tokenRouter from "./routers/token.router.js";
+import tokenRouter from "./routers/token.Router.js";
 import logOutRouter from "./routers/LogOut.js";
 // APIS
 app.use("/api/v1/login", loginRouter);
