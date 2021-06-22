@@ -2,7 +2,7 @@ import express from "express";
 import { createAccessJWT, verifyRefreshjwt } from "../helper/jwt.helper.js";
 import { userAuthorization } from "../middleware/authorization.middleware.js";
 import {} from "../helper/jwt.helper.js";
-import { getUserByEmailAndRefreshJWT } from "../model/user/User.model.js";
+import { getUserByEmail } from "../model/user/User.model.js";
 const router = express.Router();
 
 router.all("*", (req, res, next) => {
@@ -52,6 +52,40 @@ router.get("/", async (req, res, next) => {
       }
     }
     res.status(403).json({
+      status: "error",
+      message: "unathorized",
+    });
+  } catch (error) {
+    res.status(403).json({
+      status: "error",
+      message: "unathorized",
+    });
+  }
+});
+router.post("/", async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    if (token) {
+      // call the function to get the accessjwt
+
+      // 1. verify storeRefreshJwt
+
+      const { email } = await verifyRefreshjwt(token);
+
+      // 3. find out the user who the code belongs too
+
+      if (email) {
+        // 2. check if it is in the database
+
+        const user = await getUserByEmail(email);
+        res.json({
+          status: "success",
+          message: "userprofile is done",
+          user
+        });
+      }
+    }
+    res.json({
       status: "error",
       message: "unathorized",
     });
