@@ -50,6 +50,7 @@ router.all("*", (req, res, next) => {
 });
 // for displaying in product (in frontend)
 router.get("/:_id?", async (req, res) => {
+  console.log(" product roputer", req.params);
   const { _id } = req.params;
   try {
     const result = _id ? await getProductsById(_id) : await getProducts();
@@ -98,7 +99,7 @@ router.post(
       res.json({
         status: "error",
         message: "unable to add the product",
-        result,
+  
       });
     } catch (error) {
       throw error;
@@ -109,6 +110,7 @@ router.post(
 // UPdate product in Edit product form
 router.put("/", updateProductValidation, async (req, res) => {
   try {
+    console.log("update product",files);
     const { _id, ...formDt } = req.body;
     const { imgToDelete } = formDt;
     // code to receive images
